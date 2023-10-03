@@ -1,0 +1,130 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Form Registrasi Mahasiswa</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f4f4f4;
+            margin: 0;
+            padding: 0;
+        }
+
+        .container {
+            max-width: 600px;
+            margin: 0 auto;
+            padding: 20px;
+            background-color: #fff;
+            border-radius: 5px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.2);
+        }
+
+        h1 {
+            text-align: center;
+        }
+
+        label {
+            display: block;
+            margin-bottom: 5px;
+        }
+
+        input[type="text"] {
+            width: 100%;
+            padding: 10px;
+            margin-bottom: 10px;
+            border: 1px solid #ccc;
+            border-radius: 3px;
+        }
+
+        button[type="submit"] {
+            background-color: #007BFF;
+            color: #fff;
+            padding: 10px 20px;
+            border: none;
+            border-radius: 3px;
+            cursor: pointer;
+        }
+
+        button[type="submit"]:hover {
+            background-color: #0056b3;
+        }
+
+        #suggestions {
+            margin-top: 5px;
+        }
+
+        #suggestions p {
+            margin: 0;
+            padding: 5px;
+            background-color: #f7f7f7;
+            border: 1px solid #ccc;
+            border-radius: 3px;
+            cursor: pointer;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>Form Registrasi Mahasiswa</h1>
+        <form id="registrationForm">
+            <label for="nama">Nama Mahasiswa:</label>
+            <input type="text" id="nama" name="nama" onkeyup="sugestNama()">
+            <div id="suggestions"></div>
+
+            <label for="nim">NIM:</label>
+            <input type="text" id="nim" name="nim">
+
+            <label for="mataKuliah">Mata Kuliah:</label>
+            <input type="text" id="mataKuliah" name="mataKuliah">
+
+            <label for="dosen">Dosen:</label>
+            <input type="text" id="dosen" name="dosen">
+
+            <button type="submit">Submit</button>
+        </form>
+    </div>
+
+    <script>
+        const rekomendasiNama = [
+            "Akbar",
+            "Bobi",
+            "Calista",
+            "Dany",
+            "Erza",
+        ];
+
+        function sugestNama() {
+            const inputNama = document.getElementById("nama").value.toLowerCase();
+            const suggestionsDiv = document.getElementById("suggestions");
+            suggestionsDiv.innerHTML = "";
+
+            rekomendasiNama.forEach(nama => {
+                if (nama.toLowerCase().startsWith(inputNama)) {
+                    const suggestion = document.createElement("p");
+                    suggestion.textContent = nama;
+                    suggestion.onclick = function () {
+                        document.getElementById("nama").value = nama;
+                        suggestionsDiv.innerHTML = "";
+                    };
+                    suggestionsDiv.appendChild(suggestion);
+                }
+            });
+        }
+
+        document.getElementById("registrationForm").addEventListener("submit", function (event) {
+            event.preventDefault();
+
+            const nama = document.getElementById("nama").value;
+            const nim = document.getElementById("nim").value;
+            const mataKuliah = document.getElementById("mataKuliah").value;
+            const dosen = document.getElementById("dosen").value;
+
+            if (nama && nim && mataKuliah && dosen) {
+                alert("Registrasi berhasil!");
+            } else {
+                alert("Semua field harus diisi!");
+            }
+        });
+    </script>
+</body>
+</html>
